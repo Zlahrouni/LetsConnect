@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socket.IO Hello World</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js"></script>
+</head>
+<body>
+<h1>Socket.IO Hello World</h1>
+<script>
+const socket = io('http://localhost:3000'); // Replace with your server address
+
+       socket.on('connect', () => {
+           console.log('Connected to server');
+           socket.emit('hello', 'Hello from the client!');
+       });
+
+       socket.on('hello-back', (message) => {
+           console.log('Message received from server:', message);
+       });
+   </script>
+</body>
+</html>
