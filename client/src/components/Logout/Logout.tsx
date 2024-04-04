@@ -11,7 +11,7 @@ function Logout() {
   };
 
   return (
-    <div className="row heading">
+    <div className="row logout">
       <button className="btn" type="button" onClick={logout}>
         Logout
       </button>
