@@ -1,6 +1,6 @@
 .sideBar {
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0;
+    margin: 0;
     background-color: #fff;
     overflow-y: auto;
     border: 1px solid #f7f7f7;
@@ -11,10 +11,10 @@
   
   .sideBar-body {
     position: relative;
-    padding: 10px !important;
+    padding: 10px;
     border-bottom: 1px solid #f7f7f7;
     height: 72px;
-    margin: 0 !important;
+    margin: 0;
     cursor: pointer;
   }
   
@@ -24,7 +24,7 @@
   
   .sideBar-avatar {
     text-align: center;
-    padding: 0 !important;
+    padding: 0;
   }
   
   .avatar-icon img {
@@ -34,35 +34,34 @@
   }
   
   .sideBar-main {
-    padding: 0 !important;
+    padding: 0;
   }
   
   .sideBar-main .row {
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0;
+    margin: 0;
   }
   
   .sideBar-name {
-    padding: 10px !important;
+    padding: 10px;
   }
   
   .name-meta {
     font-size: 100%;
-    padding: 1% !important;
+    padding: 1%;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #000;
   }
   
-  .sideBar-time {
-    padding: 10px !important;
+  .sideBar-connection {
+    padding: 10px;
   }
   
-  .time-meta {
+  .connection-meta {
     text-align: right;
     font-size: 12px;
-    padding: 1% !important;
+    padding: 1%;
     color: rgba(0, 0, 0, .4);
-    vertical-align: baseline;
   }
