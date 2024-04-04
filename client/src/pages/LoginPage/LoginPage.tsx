@@ -30,7 +30,7 @@ const LoginPage = () => {
               <h1 style={{ textAlign: 'center'}}>WhattsNew App</h1>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label className="sr-only" htmlFor="username" />
+                  <label className="sr-only" htmlFor="username">Username</label>
                   <input
                     id="username"
                     type="text"
