@@ -30,3 +30,9 @@
     display: block;
     top: 0;
   }
+
+  .conversation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }

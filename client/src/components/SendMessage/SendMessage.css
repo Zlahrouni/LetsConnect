@@ -6,7 +6,6 @@
     background-color: #f5f1ee;
     padding: 10px 5px 10px 5px;
     margin: 0;
-    overflow: scroll;
   }
   
   .reply-send button {
@@ -20,11 +19,12 @@
   }
 
   .reply-main textarea {
+    margin-top: 5px;
     width: 100%;
     resize: none;
     overflow: hidden;
     padding: 5px;
-    height: 100%;
+    height: 100px;
     font-size: 16px;
   }
   
