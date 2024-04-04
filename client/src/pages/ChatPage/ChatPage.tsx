@@ -7,8 +7,8 @@ import "./ChatPage.css";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
-  const addMessage = (e) => {
-    setMessage(e.target.value);``
+  const addMessage = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setMessage((e.target as HTMLTextAreaElement).value);
   }
 
   return (

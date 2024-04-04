@@ -3,7 +3,7 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./SendMessage.css";
 
 type SendMessageProps = {
-  addMessage: (e: React.FormEvent<HTMLTextAreaElement>) => void;
+  addMessage:(e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   message: string;
 };
 
