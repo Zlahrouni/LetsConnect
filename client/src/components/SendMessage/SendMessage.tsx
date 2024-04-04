@@ -25,7 +25,7 @@ function SendMessage({ addMessage, message }: SendMessageProps) {
       </div>
       <div>
         <button className="btn">
-          <FontAwesomeIcon icon={faPaperPlane} size="2x" />
+          <FontAwesomeIcon icon={faPaperPlane} size="2x" className="reply-send" />
         </button>
       </div>
     </div>
