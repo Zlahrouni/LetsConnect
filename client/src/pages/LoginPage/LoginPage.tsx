@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Socket } from 'socket.io-client';
 import "./LoginPage.css";
 
-const LoginPage = () => {
+type LoginPageProps = {
+  socket: Socket;
+};
+
+const LoginPage = ({ socket }: LoginPageProps) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState({
     value: "",
