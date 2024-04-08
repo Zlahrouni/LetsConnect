@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Socket } from 'socket.io-client';
+import { Socket } from "socket.io-client";
 import ConversationWindow from "../../components/ConversationWindow/ConversationWindow";
 import Logout from "../../components/Logout/Logout";
 import SendMessage from "../../components/SendMessage/SendMessage";
@@ -27,7 +27,11 @@ function ChatPage({ socket }: ChatPageProps) {
         </div>
         <div className="col-sm-8 conversation">
           <ConversationWindow message={message} />
-          <SendMessage addMessage={addMessage} message={message} />
+          <SendMessage
+            addMessage={addMessage}
+            message={message}
+            socket={socket}
+          />
         </div>
       </div>
     </main>
