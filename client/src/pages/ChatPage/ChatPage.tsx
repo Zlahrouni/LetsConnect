@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 import ConversationWindow from "../../components/ConversationWindow/ConversationWindow";
 import Logout from "../../components/Logout/Logout";
@@ -10,11 +10,20 @@ type ChatPageProps = {
   socket: Socket;
 };
 
+type Message = {
+  text: string;
+  name: string;
+};
+
 function ChatPage({ socket }: ChatPageProps) {
-  const [message, setMessage] = useState("");
-  const addMessage = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    setMessage((e.target as HTMLTextAreaElement).value);
-  }
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  useEffect(() => {
+    socket.on('server-to-client', (data) => 
+    setMessages((prevMessages) => [...prevMessages, data]));
+  }, [socket]);
+
+  console.log(messages);
 
   return (
     <main className="container app">
@@ -26,10 +35,8 @@ function ChatPage({ socket }: ChatPageProps) {
           </div>
         </div>
         <div className="col-sm-8 conversation">
-          <ConversationWindow message={message} />
+          <ConversationWindow messages={messages} />
           <SendMessage
-            addMessage={addMessage}
-            message={message}
             socket={socket}
           />
         </div>
