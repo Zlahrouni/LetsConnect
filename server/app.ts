@@ -61,10 +61,7 @@ export class App {
                         console.log('Received message:', message);
 
                         // Send message to RabbitMQ queue
-                        ch.sendToQueue(queueName, Buffer.from(message));
-                        
-                        // Send message to all clients
-                        io.emit('server-to-client', message);
+                        ch.sendToQueue(queueName, Buffer.from(JSON.stringify(message)));
 
                     });
 
