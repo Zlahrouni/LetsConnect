@@ -34,9 +34,15 @@ function SendMessage({ socket }: SendMessageProps) {
           id="comment"
           role=""
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleSendMessage(e);
+            }
+          }}
           value={message}
           autoFocus
-        ></textarea>
+        />
       </div>
       <div>
         <button className="btn">
