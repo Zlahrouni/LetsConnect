@@ -20,7 +20,7 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
               </div>
             </div>
           ) : (
-            <div className="row message-body">
+            <div key={message.id} className="row message-body">
               <div className="col-sm-12 message-main-sender">
                 <div className="sender">
                   <p>{message.name}</p>
