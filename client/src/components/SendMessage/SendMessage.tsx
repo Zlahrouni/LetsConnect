@@ -9,19 +9,23 @@ type SendMessageProps = {
 };
 
 function SendMessage({ socket }: SendMessageProps) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
+  let date = new Date();
+  let options = { weekday: 'short', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  let formattedDate = date.toLocaleDateString('en-UK', options);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (message.trim() && localStorage.getItem('userName')) {
-      socket.emit('client-to-server', {
+    if (message.trim() && localStorage.getItem("userName")) {
+      socket.emit("client-to-server", {
+        name: localStorage.getItem("userName"),
         text: message,
-        name: localStorage.getItem('userName'),
+        date: formattedDate,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
       });
     }
-    setMessage('');
+    setMessage("");
   };
   return (
     <form className="row reply d-flex flex-column" onSubmit={handleSendMessage}>
@@ -35,7 +39,7 @@ function SendMessage({ socket }: SendMessageProps) {
           role=""
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
               handleSendMessage(e);
             }
@@ -46,7 +50,11 @@ function SendMessage({ socket }: SendMessageProps) {
       </div>
       <div>
         <button className="btn">
-          <FontAwesomeIcon icon={faPaperPlane} size="2x" className="reply-send" />
+          <FontAwesomeIcon
+            icon={faPaperPlane}
+            size="2x"
+            className="reply-send"
+          />
         </button>
       </div>
     </form>
