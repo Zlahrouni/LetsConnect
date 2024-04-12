@@ -4,7 +4,7 @@ import "./Logout.css";
 function Logout() {
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = (): void => {
     localStorage.removeItem('userName');
     navigate('/');
     window.location.reload();

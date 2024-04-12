@@ -1,17 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Socket } from "socket.io-client";
 import { useState } from "react";
 import "./SendMessage.css";
-
-type SendMessageProps = {
-  socket: Socket;
-};
+import { SendMessageProps } from "../../types/types";
 
 function SendMessage({ socket }: SendMessageProps) {
   const [message, setMessage] = useState("");
   let date = new Date();
-  let options = { weekday: 'short', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  let options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
   let formattedDate = date.toLocaleDateString('en-UK', options);
 
   const handleSendMessage = (e) => {

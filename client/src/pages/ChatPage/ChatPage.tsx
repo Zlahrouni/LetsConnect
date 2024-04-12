@@ -1,19 +1,10 @@
 import { useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
 import ConversationWindow from "../../components/ConversationWindow/ConversationWindow";
 import Logout from "../../components/Logout/Logout";
 import SendMessage from "../../components/SendMessage/SendMessage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./ChatPage.css";
-
-type ChatPageProps = {
-  socket: Socket;
-};
-
-type Message = {
-  text: string;
-  name: string;
-};
+import { ChatPageProps, Message } from "../../types/types";
 
 function ChatPage({ socket }: ChatPageProps) {
   const [messages, setMessages] = useState<Message[]>([]);

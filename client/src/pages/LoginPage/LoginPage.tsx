@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Socket } from 'socket.io-client';
 import "./LoginPage.css";
-
-type LoginPageProps = {
-  socket: Socket;
-};
+import { LoginPageProps } from "../../types/types";
 
 const LoginPage = ({ socket }: LoginPageProps) => {
   const navigate = useNavigate();
@@ -16,11 +12,11 @@ const LoginPage = ({ socket }: LoginPageProps) => {
 
   const { value, isTouched } = userName;
 
-  const getIsFormValid = () => {
+  const getIsFormValid = (): boolean => {
     return value.length > 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     localStorage.setItem("userName", value);
     navigate("/chat");
