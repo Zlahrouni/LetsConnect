@@ -62,9 +62,10 @@ export class App {
 
                         // Send message to RabbitMQ queue
                         ch.sendToQueue(queueName, Buffer.from(message));
+                        
+                        // Send message to all clients
+                        io.emit('server-to-client', message);
 
-                        // Send message to client TODO : the message need to be send to all clients
-                        socket.emit('server-to-client', message);
                     });
 
                     // Handle disconnections
