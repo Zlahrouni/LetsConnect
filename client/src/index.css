@@ -6,15 +6,19 @@ div,
 span {
   width: 100%;
   height: 100%;
-  overflow: hidden;
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
 }
 
 body {
   background: url("https://www.bootdey.com/img/bgy.png") no-repeat fixed center;
   background-size: cover;
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .fa-2x {

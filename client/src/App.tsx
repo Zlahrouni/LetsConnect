@@ -1,4 +1,5 @@
 
+import "./index.css";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import io from 'socket.io-client';
 import ChatPage from './pages/ChatPage/ChatPage';
@@ -30,7 +31,7 @@ function App() {
     }, []);
   return (
     <BrowserRouter>
-      <div>
+      <div className='pageContainer'>
         <Routes>
             {/*We show etheir the not connected page or the login/chatpage that mean if*/}
             <Route path="/" element={ isConnected ? <LoginPage socket={socket}/> : <NotConnected/>}></Route>

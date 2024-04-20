@@ -65,3 +65,12 @@
     padding: 1%;
     color: rgba(0, 0, 0, .4);
   }
+
+  .connection-dot {
+    height: 5px;
+  }
+
+  .dot {
+    display: inline-block;
+    border-radius: 50%;
+  }
