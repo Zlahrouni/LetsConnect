@@ -8,10 +8,12 @@ export class App {
   private express = express();
   private httpServer: any;
   private users: Array<{ username: string; online: boolean }> = [];
+  private messageHistory: Message[] = [];
 
   constructor(port: number = 3000) {
     this.configureServer(port);
     this.configureIO();
+    //this.connectToRabbitMQ();
   }
 
   /**
@@ -30,6 +32,7 @@ export class App {
    */
   private configureIO() {
     const io = new Server(this.httpServer, { cors: { origin: "*" } }); // Allow all origins for development
+
 
     // RabbitMQ's connection details
     const rabbitmqUrl = "amqp://localhost:5672";
@@ -62,6 +65,21 @@ export class App {
             this.users = JSON.parse(msg.content.toString());
             console.log("First Users array updated:", this.users);
           }
+        });
+
+        // Read the chat messages queue and set the messageHistory array with the data from the queue
+        ch.consume(chatMessages, (msg) => {
+          if (msg) {
+            console.log("Message history array:", this.messageHistory);
+            const newMessage: Message = JSON.parse(msg.content.toString());
+            this.messageHistory.push(newMessage);
+            console.log("First Message history array updated:", this.messageHistory);
+          }
+
+          if (this.messageHistory.length > 100) {
+            this.messageHistory.shift();
+          }
+
         });
 
         // Listen for messages in the queue
