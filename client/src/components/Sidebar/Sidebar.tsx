@@ -9,7 +9,7 @@ const Sidebar = ({ socket }: SidebarBlock) => {
     socket.emit("getUsers");
 
     socket.on("users", (receivedUsers) => {
-      console.log("Users received:", receivedUsers);
+      // console.log("Users received:", receivedUsers);
       setUsers(receivedUsers);
     });
 

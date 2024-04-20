@@ -5,31 +5,29 @@ import SendMessage from "../../components/SendMessage/SendMessage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./ChatPage.css";
 import { ChatPageProps, Message } from "../../types/types";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ChatPage({ socket }: ChatPageProps) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
 
-    useEffect(() => {
-        socket.on("server-to-client", (messageObject: Message) => {
-        setMessages((messages) => [...messages, messageObject]);
-        });
+  useEffect(() => {
+    socket.on("server-to-client", (messageObject: Message) => {
+      setMessages((messages) => [...messages, messageObject]);
+    });
 
-        socket.on("logoutsuccess", () => {
-            localStorage.removeItem("username");
-            console.log("logout success")
-            navigate("/");
-        });
+    socket.on("logoutsuccess", () => {
+      localStorage.removeItem("username");
+      console.log("logout success");
+      navigate("/");
+    });
 
-        return () => {
-        socket.off("server-to-client");
-        };
-    }, [socket]);
+    return () => {
+      socket.off("server-to-client");
+    };
+  }, [socket]);
 
-    console.log("Messages")
-  console.log(messages);
-
+  // console.log("messages", messages);
   return (
     <main className="container app">
       <div className="row app-one">
@@ -41,9 +39,7 @@ function ChatPage({ socket }: ChatPageProps) {
         </div>
         <div className="col-sm-8 conversation">
           <ConversationWindow messages={messages} />
-          <SendMessage
-            socket={socket}
-          />
+          <SendMessage socket={socket} />
         </div>
       </div>
     </main>
