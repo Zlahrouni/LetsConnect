@@ -7,7 +7,7 @@ export type ChatPageProps = {
 export type Message = {
   id: string;
   name: string;
-  text: string;
+  message: string;
   date: string;
 };
 
@@ -22,3 +22,17 @@ export type ConversationWindowProps = {
 export type SendMessageProps = {
     socket: Socket;
   };
+
+export type LoginProps = {
+  socket: Socket;
+};
+
+export type Logout = {
+  socket: Socket;
+};
+
+export type SidebarBlock = {
+  socket: Socket;
+};
+
+export type User = {username: string, online: boolean};

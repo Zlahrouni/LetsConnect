@@ -1,13 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import "./Logout.css";
 
-function Logout() {
-  const navigate = useNavigate();
+import "./Logout.css";
+import {LoginProps} from "../../types/types.tsx";
+
+const Logout = ({ socket }: LoginProps) => {
 
   const logout = (): void => {
-    localStorage.removeItem('userName');
-    navigate('/');
-    window.location.reload();
+    socket.emit('logout', { username: localStorage.getItem('username') });
   };
 
   return (

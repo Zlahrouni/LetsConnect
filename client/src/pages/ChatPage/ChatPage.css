@@ -36,3 +36,16 @@
     flex-direction: column;
     height: 100%;
   }
+
+.connection-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}

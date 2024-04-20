@@ -1,25 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { v4 as uuid } from "uuid";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./SendMessage.css";
 import { SendMessageProps } from "../../types/types";
 
 function SendMessage({ socket }: SendMessageProps) {
   const [message, setMessage] = useState("");
-  let date = new Date();
-  let options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  let formattedDate = date.toLocaleDateString('en-UK', options);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() && localStorage.getItem("userName")) {
+    if (message.trim() && localStorage.getItem("username")) {
       socket.emit("client-to-server", {
-        name: localStorage.getItem("userName"),
-        text: message,
-        date: formattedDate,
-        id: `${uuid()}`,
-        socketID: socket.id,
+        name: localStorage.getItem("username"),
+        message: message,
       });
     }
     setMessage("");

@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState} from "react";
+import {LoginProps} from "../../types/types.tsx";
 
-const Login = ({ }) => {
-  const navigate = useNavigate();
+const Login = ({ socket }: LoginProps) => {
   const [userName, setUserName] = useState({
     value: "",
     isTouched: false,
@@ -14,11 +13,15 @@ const Login = ({ }) => {
     return value.length > 0;
   };
 
+
+
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    localStorage.setItem("userName", value);
-    navigate("/chat");
+    localStorage.setItem("username", value);
+    console.log("Login", value);
+    socket.emit("login", { username: value });
   };
+
 
   return (
     <form onSubmit={handleSubmit}>

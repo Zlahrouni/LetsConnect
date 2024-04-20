@@ -5,7 +5,7 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
   return (
     <>
       <div className="row heading">
-        <h1> WhattsNew Chat</h1>
+        <h1> Welcome {localStorage.getItem("username")}</h1>
       </div>
       <div className="row message" id="conversation">
         {messages.map((message) =>
@@ -14,7 +14,7 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
               <div className="col-sm-12 message-main-receiver">
                 <div className="receiver">
                   <p>{message.name}</p>
-                  <div className="message-text">{message.text}</div>
+                  <div className="message-text">{message.message}</div>
                   <span className="message-time pull-right">{message.date}</span>
                 </div>
               </div>
@@ -24,7 +24,7 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
               <div className="col-sm-12 message-main-sender">
                 <div className="sender">
                   <p>{message.name}</p>
-                  <div className="message-text">{message.text}</div>
+                  <div className="message-text">{message.message}</div>
                   <span className="message-time pull-right">{message.date}</span>
                 </div>
               </div>
