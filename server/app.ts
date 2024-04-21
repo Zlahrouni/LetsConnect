@@ -33,7 +33,6 @@ export class App {
   private configureIO() {
     const io = new Server(this.httpServer, { cors: { origin: "*" } }); // Allow all origins for development
 
-
     // RabbitMQ's connection details
     const rabbitmqUrl = "amqp://localhost:5672";
 
@@ -73,18 +72,23 @@ export class App {
             console.log("Message history array:", this.messageHistory);
             const newMessage: Message = JSON.parse(msg.content.toString());
             this.messageHistory.push(newMessage);
-            console.log("First Message history array updated:", this.messageHistory);
+            console.log(
+              "First Message history array updated:",
+              this.messageHistory
+            );
           }
 
           if (this.messageHistory.length > 100) {
             this.messageHistory.shift();
           }
-
         });
 
         // Listen for messages in the queue
         io.on("connection", (socket) => {
           console.log("A user connected");
+
+          // Send the message history to the client
+          socket.emit("messageHistory", this.messageHistory);
 
           // Handle messages from clients
           socket.on("client-to-server", (messageObject) => {
@@ -100,6 +104,10 @@ export class App {
               chatMessages,
               Buffer.from(JSON.stringify(messageToStore))
             );
+
+            // Update the message history array and send it to the front-end
+            this.messageHistory.push(messageToStore);
+            socket.emit("messageHistory", this.messageHistory);
 
             // Send message to all clients
             io.emit("server-to-client", messageToStore);

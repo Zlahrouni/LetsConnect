@@ -12,6 +12,13 @@ function ChatPage({ socket }: ChatPageProps) {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
+    // Request message history from server when component mounts
+    socket.emit("getMessages");
+
+    socket.on("messageHistory", (messageHistory: Message[]) => {
+      setMessages(messageHistory);
+    });
+
     socket.on("server-to-client", (messageObject: Message) => {
       setMessages((messages) => [...messages, messageObject]);
     });
@@ -24,10 +31,12 @@ function ChatPage({ socket }: ChatPageProps) {
 
     return () => {
       socket.off("server-to-client");
+      socket.off("messageHistory");
+      socket.off("logoutsuccess");
     };
-  }, [socket]);
+  }, [socket, navigate]);
 
-  // console.log("messages", messages);
+  console.log("messages", messages);
   return (
     <main className="container app">
       <div className="row app-one">
