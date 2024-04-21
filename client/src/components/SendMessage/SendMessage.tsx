@@ -39,7 +39,7 @@ function SendMessage({ socket }: SendMessageProps) {
         />
       </div>
       <div>
-        <button className="btn">
+        <button className="btn send">
           <FontAwesomeIcon
             icon={faPaperPlane}
             size="2x"

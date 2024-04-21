@@ -1,10 +1,9 @@
 /*Reply*/
 
 .reply {
-    height: 200px;
+    height: 250px;
     width: 100%;
     background-color: #f5f1ee;
-    padding: 10px 5px 10px 5px;
     margin: 0;
   }
   
@@ -19,12 +18,12 @@
   }
 
   .reply-main textarea {
-    margin-top: 5px;
+    margin-top: 30px;
     width: 100%;
+    height: 130px;
     resize: none;
     overflow: hidden;
-    padding: 5px;
-    height: 100px;
+    padding: 10px;
     font-size: 16px;
   }
   
@@ -34,4 +33,12 @@
     border: none;
     text-indent: 5px;
     box-shadow: none;
+  }
+
+  .form-control::placeholder {
+    font-style: italic;
+  }
+
+  .send {
+    margin-top: 50px;
   }
