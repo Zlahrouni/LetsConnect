@@ -39,7 +39,9 @@ function ChatPage({ socket }: ChatPageProps) {
         <div className="col-sm-9 conversation">
           <ConversationWindow messages={messages} />
           <SendMessage socket={socket} />
-          <Logout socket={socket} />
+          <div className="row logout">
+            <Logout socket={socket} />
+          </div>
         </div>
       </div>
     </main>

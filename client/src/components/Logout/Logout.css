@@ -1,6 +1,12 @@
 .logout {
-    padding: 10px 16px 10px 15px;
-    margin: 0;
-    height: 60px;
-    background-color: #eee;
+  height: 60px;
+}
+
+.logout button {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    width: 120px;
+    height: 40px;
+    margin-top: 10px;
   }

@@ -9,7 +9,7 @@ const Logout = ({ socket }: LoginProps) => {
   };
 
   return (
-    <div className="row logout">
+    <div className="row logout d-flex flex-column align-items-end">
       <button className="btn" type="button" onClick={logout}>
         Logout
       </button>
