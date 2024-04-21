@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHand } from "@fortawesome/free-solid-svg-icons";
 import { ConversationWindowProps } from "../../types/types";
 import "./ConversationWindow.css";
 
@@ -5,7 +7,11 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
   return (
     <>
       <div className="row heading">
-        <h1> Welcome {localStorage.getItem("username")}</h1>
+        <h1 className="text-center">
+          {" "}
+          Welcome {localStorage.getItem("username")}{" "}
+          <FontAwesomeIcon icon={faHand} size="2x" className="hand" />
+        </h1>
       </div>
       <div className="row message" id="conversation">
         {messages.map((message) =>
@@ -15,7 +21,9 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
                 <div className="receiver">
                   <p>{message.name}</p>
                   <div className="message-text">{message.message}</div>
-                  <span className="message-time pull-right">{message.date}</span>
+                  <span className="message-time pull-right">
+                    {message.date}
+                  </span>
                 </div>
               </div>
             </div>
@@ -25,7 +33,9 @@ function ConversationWindow({ messages }: ConversationWindowProps) {
                 <div className="sender">
                   <p>{message.name}</p>
                   <div className="message-text">{message.message}</div>
-                  <span className="message-time pull-right">{message.date}</span>
+                  <span className="message-time pull-right">
+                    {message.date}
+                  </span>
                 </div>
               </div>
             </div>

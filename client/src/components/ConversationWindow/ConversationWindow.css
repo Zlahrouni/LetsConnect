@@ -144,3 +144,18 @@ div > .sender {
   display: inline-block;
   word-wrap: break-word;
 }
+
+h1 {
+  font-size: 30px;
+}
+
+.row.heading {
+  height: 100px;
+  margin-top: 30px;
+}
+
+.hand {
+  color: grey;
+  margin-left: 10px;
+  height: 35px;
+}
