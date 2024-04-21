@@ -9,7 +9,6 @@ const Sidebar = ({ socket }: SidebarBlock) => {
     socket.emit("getUsers");
 
     socket.on("users", (receivedUsers) => {
-      // console.log("Users received:", receivedUsers);
       setUsers(receivedUsers);
     });
 
@@ -19,24 +18,17 @@ const Sidebar = ({ socket }: SidebarBlock) => {
   }, [socket]);
 
   return (
-    <div className="row sideBar">
+    <div className="sideBar d-flex flex-column align-items-center">
+      <h2> Users</h2>
       {users.map((user) => (
         <div key={user.username} className="row sideBar-body">
-          <div className="col-sm-9 col-xs-9 sideBar-main">
-            <div className="row">
-              <div className="col-sm-8 col-xs-8 sideBar-name">
-                <span className="name-meta">{user.username}</span>
-              </div>
-              <div className="col-sm-4 col-xs-4 pull-right sideBar-connection">
-                <span className="connection-dot">
-                  <span
-                    className={`dot ${
-                      user.online ? "bg-success" : "bg-danger"
-                    }`}
-                  />
-                </span>
-              </div>
-            </div>
+          <div className="col sideBar-name">
+            <span className="name">{user.username}</span>
+          </div>
+          <div className="col d-flex align-items-center justify-content-end">
+            <div
+              className={`dot ${user.online ? "bg-success" : "bg-danger"}`}
+            />
           </div>
         </div>
       ))}

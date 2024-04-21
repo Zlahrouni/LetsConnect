@@ -26,7 +26,7 @@ function SendMessage({ socket }: SendMessageProps) {
         <textarea
           className="form-control"
           id="message"
-          role=""
+          placeholder="Enter your message..."
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {

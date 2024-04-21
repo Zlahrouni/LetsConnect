@@ -31,15 +31,15 @@ function ChatPage({ socket }: ChatPageProps) {
   return (
     <main className="container app">
       <div className="row app-one">
-        <div className="col-sm-4 side">
+        <div className="col-sm-3 side">
           <div className="side-one">
-            <Logout socket={socket} />
             <Sidebar socket={socket} />
           </div>
         </div>
-        <div className="col-sm-8 conversation">
+        <div className="col-sm-9 conversation">
           <ConversationWindow messages={messages} />
           <SendMessage socket={socket} />
+          <Logout socket={socket} />
         </div>
       </div>
     </main>
