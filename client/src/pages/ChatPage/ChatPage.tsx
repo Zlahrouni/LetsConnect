@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ConversationWindow from "../../components/ConversationWindow/ConversationWindow";
 import Logout from "../../components/Logout/Logout";
 import SendMessage from "../../components/SendMessage/SendMessage";
@@ -7,26 +7,18 @@ import "./ChatPage.css";
 import { ChatPageProps, Message } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 
-function ChatPage({ socket }: ChatPageProps) {
+function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    // Request message history from server when component mounts
-    socket.emit("getMessages");
-
-    socket.on("messageHistory", (messageHistory: Message[]) => {
-      setMessages(messageHistory);
-    });
-
     socket.on("server-to-client", (messageObject: Message) => {
-      setMessages((messages) => [...messages, messageObject]);
+      addMessage(messageObject);
     });
 
     socket.on("logoutsuccess", () => {
       localStorage.removeItem("username");
-      console.log("logout success");
       navigate("/");
+      window.location.reload();
     });
 
     return () => {
@@ -34,7 +26,7 @@ function ChatPage({ socket }: ChatPageProps) {
       socket.off("messageHistory");
       socket.off("logoutsuccess");
     };
-  }, [socket, navigate]);
+  }, []);
 
   console.log("messages", messages);
   return (

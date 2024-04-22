@@ -2,6 +2,8 @@ import { Socket } from "socket.io-client";
 
 export type ChatPageProps = {
   socket: Socket;
+  messages: Message[];
+  addMessage: (message: Message) => void;
 };
 
 export type Message = {

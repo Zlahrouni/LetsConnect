@@ -105,8 +105,6 @@ export class App {
               Buffer.from(JSON.stringify(messageToStore))
             );
 
-            // Update the message history array and send it to the front-end
-            this.messageHistory.push(messageToStore);
             socket.emit("messageHistory", this.messageHistory);
 
             // Send message to all clients
