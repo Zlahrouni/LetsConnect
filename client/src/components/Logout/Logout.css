@@ -3,10 +3,7 @@
 }
 
 .logout button {
-    background-color: grey;
-    color: white;
-    font-weight: bold;
-    width: 120px;
-    height: 40px;
-    margin-top: 10px;
-  }
+  width: 85px;
+  height: 40px;
+  margin-top: 10px;
+}

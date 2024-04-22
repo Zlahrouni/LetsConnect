@@ -17,7 +17,6 @@ const Login = ({ socket }: LoginProps) => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     localStorage.setItem("username", value);
-    console.log("Login", value);
     socket.emit("login", { username: value });
   };
 

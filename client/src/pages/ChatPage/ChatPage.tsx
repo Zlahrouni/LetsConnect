@@ -18,7 +18,6 @@ function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
     socket.on("logoutsuccess", () => {
       localStorage.removeItem("username");
       navigate("/");
-      window.location.reload();
     });
 
     return () => {
