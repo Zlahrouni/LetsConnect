@@ -1,0 +1,45 @@
+.app {
+    overflow: auto;
+    top: 19px;
+    height: calc(100% - 38px);
+    min-height: 600px;
+    margin: auto;
+    padding: 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
+  }
+  
+  .app-one {
+    background-color: #f7f7f7;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
+  }
+  
+  .side {
+    padding: 0;
+    margin: 0;
+  }
+  .side-one {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+    display: block;
+    top: 0;
+  }
+
+  .conversation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+.connection-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}

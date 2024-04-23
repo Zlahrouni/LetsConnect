@@ -1,0 +1,45 @@
+.sideBar {
+  margin: 0;
+  background-color: #fff;
+  border: 1px solid #f7f7f7;
+  height: calc(100% - 120px);
+  width: 100%;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sideBar-body {
+  width: 100%;
+  border-bottom: 1px solid #f7f7f7;
+  height: 72px;
+  cursor: pointer;
+}
+
+.sideBar-body:hover {
+  background-color: #f2f2f2;
+}
+
+.sideBar-name {
+  padding: 20px 25px;
+}
+
+.name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+  font-weight: bold;
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+
+h2 {
+  margin: 20px;
+  font-size: 18px;
+  color: grey;
+}

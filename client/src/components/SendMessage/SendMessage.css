@@ -1,0 +1,44 @@
+/*Reply*/
+
+.reply {
+    height: 250px;
+    width: 100%;
+    background-color: #f5f1ee;
+    margin: 0;
+  }
+  
+  .reply-send button {
+    text-align: center;
+    color: #93918f;
+    cursor: pointer;
+  }
+  
+  .reply-main {
+    padding: 2px 5px;
+  }
+
+  .reply-main textarea {
+    margin-top: 30px;
+    width: 100%;
+    height: 130px;
+    resize: none;
+    overflow: hidden;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .reply-main textarea,
+  .reply-main textarea:focus {
+    outline: none;
+    border: none;
+    text-indent: 5px;
+    box-shadow: none;
+  }
+
+  .form-control::placeholder {
+    font-style: italic;
+  }
+
+  .send {
+    margin-top: 50px;
+  }
