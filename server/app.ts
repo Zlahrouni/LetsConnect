@@ -155,7 +155,8 @@ export class App {
             });
           });
 
-          socket.on("logout", (data) => {
+          socket.on("logout", (data, callback) => {
+            console.log("User want to logout:", data);
             // Find the user in the users array
             const user = this.users.find(
               (user) => user.username === data.username
@@ -186,8 +187,8 @@ export class App {
                 }
               });
 
-              // emit the message to the specific user
-              socket.emit("logoutsuccess", { username: data.username });
+              // callBack to the client
+              callback({});
             });
           });
 

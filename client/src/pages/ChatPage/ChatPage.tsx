@@ -5,25 +5,19 @@ import SendMessage from "../../components/SendMessage/SendMessage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./ChatPage.css";
 import { ChatPageProps, Message } from "../../types/types";
-import { useNavigate } from "react-router-dom";
 
 function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
-  const navigate = useNavigate();
 
   useEffect(() => {
     socket.on("server-to-client", (messageObject: Message) => {
       addMessage(messageObject);
     });
 
-    socket.on("logoutsuccess", () => {
-      localStorage.removeItem("username");
-      navigate("/");
-    });
+
 
     return () => {
       socket.off("server-to-client");
       socket.off("messageHistory");
-      socket.off("logoutsuccess");
     };
   }, []);
 
