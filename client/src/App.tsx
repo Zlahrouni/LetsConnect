@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import io from "socket.io-client";
 import "./index.css";

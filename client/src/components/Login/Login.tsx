@@ -23,7 +23,7 @@ const Login = ({ socket }: LoginProps) => {
   return (
     <div className="card">
       <div className="card-body">
-        <h1 className="text-center">WhattsNew App</h1>
+        <h1 className="text-center">Lets Connect</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="sr-only" htmlFor="username">
