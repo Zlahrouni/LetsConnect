@@ -1,6 +1,6 @@
 import express from "express";
 import { Server, Socket } from "socket.io";
-import amqp, { ConsumeMessage } from "amqplib/callback_api";
+import amqp from "amqplib/callback_api";
 import { Message } from "./types/types";
 import { v4 as uuidv4 } from "uuid";
 import { Channel, Connection, Message as AmqpMessage } from 'amqplib/callback_api';

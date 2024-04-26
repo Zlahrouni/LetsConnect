@@ -5,6 +5,7 @@ import "./SendMessage.css";
 import { SendMessageProps } from "../../types/types";
 
 function SendMessage({ socket }: SendMessageProps) {
+  // State for managing the message input field
   const [message, setMessage] = useState("");
 
   const handleSendMessage = (e: React.FormEvent) => {
@@ -15,6 +16,7 @@ function SendMessage({ socket }: SendMessageProps) {
         message: message,
       });
     }
+    // Clear the message input field after sending the message
     setMessage("");
   };
 
