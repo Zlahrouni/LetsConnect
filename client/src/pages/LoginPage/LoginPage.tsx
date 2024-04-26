@@ -1,4 +1,3 @@
-import "./LoginPage.css";
 import { LoginPageProps } from "../../types/types";
 import Login from "../../components/Login/Login";
 import { useEffect } from "react";
