@@ -4,3 +4,8 @@ export type Message = {
     message: string;
     date: string;
 };
+
+export type User = {
+    username: string;
+    online: boolean;
+};
