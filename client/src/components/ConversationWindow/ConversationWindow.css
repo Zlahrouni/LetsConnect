@@ -1,64 +1,64 @@
 newMessage {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 100%;
-    position: relative;
-    left: -100%;
-  }
-  .newMessage-heading {
-    padding: 10px 16px 10px 15px !important;
-    margin: 0 !important;
-    height: 100px;
-    width: 100%;
-    background-color: #00bfa5;
-    z-index: 1001;
-  }
-  
-  .newMessage-main {
-    padding: 10px 16px 0 15px !important;
-    margin: 0 !important;
-    height: 60px;
-    margin-top: 30px !important;
-    width: 100%;
-    z-index: 1001;
-    color: #fff;
-  }
-  
-  .newMessage-title {
-    font-size: 18px;
-    font-weight: 700;
-    padding: 10px 5px !important;
-  }
-  .newMessage-back {
-    text-align: center;
-    vertical-align: baseline;
-    padding: 12px 5px !important;
-    display: block;
-    cursor: pointer;
-  }
-  .newMessage-back i {
-    margin: auto !important;
-  }
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100%;
+  position: relative;
+  left: -100%;
+}
+.newMessage-heading {
+  padding: 10px 16px 10px 15px !important;
+  margin: 0 !important;
+  height: 100px;
+  width: 100%;
+  background-color: #00bfa5;
+  z-index: 1001;
+}
 
-  .conversation {
+.newMessage-main {
+  padding: 10px 16px 0 15px !important;
+  margin: 0 !important;
+  height: 60px;
+  margin-top: 30px !important;
+  width: 100%;
+  z-index: 1001;
+  color: #fff;
+}
+
+.newMessage-title {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 5px !important;
+}
+.newMessage-back {
+  text-align: center;
+  vertical-align: baseline;
+  padding: 12px 5px !important;
+  display: block;
+  cursor: pointer;
+}
+.newMessage-back i {
+  margin: auto !important;
+}
+
+.conversation {
   padding: 0 !important;
   margin: 0 !important;
   /*width: 100%;*/
-  border-left: 1px solid rgba(0, 0, 0, .08);
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
   /*overflow-y: auto;*/
 }
 
 .message {
   padding: 0 !important;
   margin: 0 !important;
- 
+
   background-size: cover;
   overflow-y: auto;
   border: 1px solid #f7f7f7;
   height: calc(100% - 120px);
 }
 .message-previous {
-  margin : 0 !important;
+  margin: 0 !important;
   padding: 0 !important;
   height: auto;
   width: 100%;
@@ -103,7 +103,7 @@ newMessage {
 .message-text {
   margin: 0 !important;
   padding: 5px !important;
-  word-wrap:break-word;
+  word-wrap: break-word;
   font-weight: 200;
   font-size: 14px;
   padding-bottom: 0 !important;
@@ -111,7 +111,7 @@ newMessage {
 
 div > .receiver,
 div > .sender {
-  height:auto;
+  height: auto;
 }
 .message-time {
   margin: 0 !important;
@@ -119,7 +119,6 @@ div > .sender {
   font-size: 12px;
   text-align: right;
   color: #9a9a9a;
-
 }
 
 .receiver {
@@ -128,7 +127,7 @@ div > .sender {
   border-radius: 10px 10px 10px 0;
   background: #ffffff;
   font-size: 12px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   word-wrap: break-word;
   display: inline-block;
 }
@@ -140,7 +139,7 @@ div > .sender {
   border-radius: 10px 10px 0 10px;
   padding: 4px 10px 7px !important;
   font-size: 12px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   display: inline-block;
   word-wrap: break-word;
 }

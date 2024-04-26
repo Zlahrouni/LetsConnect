@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ socket }: LoginPageProps) => {
   const navigate = useNavigate();
+  
   useEffect(() => {
     // check local storage and connect
     if (localStorage.getItem("username")) {
@@ -31,6 +32,7 @@ const LoginPage = ({ socket }: LoginPageProps) => {
       socket.off("loginsuccess");
     };
   }, [socket]);
+
   return (
     <main className="container">
       <div className="row justify-content-center">

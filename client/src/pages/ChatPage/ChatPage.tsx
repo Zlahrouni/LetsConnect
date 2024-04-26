@@ -5,7 +5,7 @@ import SendMessage from "../../components/SendMessage/SendMessage";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./ChatPage.css";
 import { ChatPageProps, Message } from "../../types/types";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
     socket.on("server-to-client", (messageObject: Message) => {
       addMessage(messageObject);
     });
-
 
     return () => {
       socket.off("server-to-client");
