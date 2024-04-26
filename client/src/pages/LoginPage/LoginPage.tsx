@@ -7,7 +7,6 @@ const LoginPage = ({ socket }: LoginPageProps) => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    // check local storage and connect
     if (localStorage.getItem("username")) {
       socket.emit("login", { username: localStorage.getItem("username") });
     }
@@ -25,6 +24,7 @@ const LoginPage = ({ socket }: LoginPageProps) => {
       navigate("/chat");
     });
 
+    // Cleanup function to stop listening
     return () => {
       socket.off("connect");
       socket.off("connect_error");

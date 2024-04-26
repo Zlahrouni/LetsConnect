@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
   const navigate = useNavigate();
+  
   useEffect(() => {
-    // check if localstorage has a username
     if (!localStorage.getItem("username")) {
       navigate("/");
     }
@@ -19,11 +19,14 @@ function ChatPage({ socket, messages, addMessage }: ChatPageProps) {
       addMessage(messageObject);
     });
 
+    // Cleanup function to stop listening for the server-to-client and messageHistory events
     return () => {
       socket.off("server-to-client");
       socket.off("messageHistory");
     };
-  }, []);
+  },
+  // Empty dependency array so the effect only runs once
+   []);
 
   console.log("messages", messages);
   return (
