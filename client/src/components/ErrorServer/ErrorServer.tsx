@@ -1,4 +1,4 @@
-function NotConnected() {
+function ErrorServer() {
   return (
     <div>
       <h1>Can't Reach the server</h1>
@@ -6,4 +6,4 @@ function NotConnected() {
   );
 }
 
-export default NotConnected;
+export default ErrorServer;

@@ -1,6 +1,6 @@
 import express from "express";
 import { Server, Socket } from "socket.io";
-import amqp, { ConsumeMessage } from "amqplib/callback_api";
+import amqp from "amqplib/callback_api";
 import { Message } from "./types/types";
 import { v4 as uuidv4 } from "uuid";
 import { Channel, Connection, Message as AmqpMessage } from 'amqplib/callback_api';
@@ -40,7 +40,6 @@ export class App {
         process.exit(1);
       }
 
-      // Create a channel
       conn.createChannel((err: Error, ch: Channel) => {
         if (err) {
           console.error("Error creating RabbitMQ channel:", err);
@@ -58,18 +57,17 @@ export class App {
         ch.consume(usersQueue, (msg: AmqpMessage | null): void => {
           if (msg) {
             this.users = JSON.parse(msg.content.toString());
-            console.log("First Users array updated:", this.users);
+            console.log("Users array updated:", this.users);
           }
         });
 
         // Read the chat messages queue and set the messageHistory array with the data from the queue
         ch.consume(messagesQueue, (msg: AmqpMessage| null) => {
           if (msg) {
-            console.log("Message history array:", this.messageHistory);
             const newMessage: Message = JSON.parse(msg.content.toString());
             this.messageHistory.push(newMessage);
             console.log(
-              "First Message history array updated:",
+              "Message history array updated:",
               this.messageHistory
             );
           }
@@ -81,14 +79,12 @@ export class App {
 
         // Listen for messages in the queue
         io.on("connection", (socket: Socket) => {
-          console.log("A user connected");
 
           // Send the message history to the client
           socket.emit("messageHistory", this.messageHistory);
 
           // Handle messages sent from clients
           socket.on("client-to-server", (messageObject: { name: string, message: string }) => {
-            console.log("Received message:", messageObject);
             let messageToStore: Message = {
               id: uuidv4(),
               name: messageObject.name,
@@ -107,8 +103,6 @@ export class App {
           });
 
           socket.on("login", (data: { username: string }) => {
-            console.log("User logged in:", data);
-
             const user = this.users.find(
               (user:{ username: string, online: boolean }) => user.username === data.username
             );
@@ -125,8 +119,6 @@ export class App {
                 return;
               }
 
-              console.log("Successfully purged the users queue");
-
               // Send the latest users array to the RabbitMQ users queue
               ch.sendToQueue(
                 usersQueue,
@@ -134,12 +126,10 @@ export class App {
               );
 
               this.users = [];
-              console.log("Users array purged:", this.users);
 
               ch.consume(usersQueue, (msg: AmqpMessage | null) => {
                 if (msg) {
                   this.users = JSON.parse(msg.content.toString());
-                  console.log("Users array updated:", this.users);
                   io.emit("users", this.users);
                 }
               });
@@ -149,7 +139,6 @@ export class App {
           });
 
           socket.on("logout", (data: { username: string }, callback: (arg: {}) => void) => {
-            console.log("User want to logout:", data);
             // Find the user in the users array
             const user = this.users.find(
               (user) => user.username === data.username
@@ -159,7 +148,6 @@ export class App {
               user.online = false;
             }
 
-            // Purge the queue 
             ch.purgeQueue(usersQueue, (err: Error | null) => {
               if (err) {
                 console.error("Error purging RabbitMQ queue:", err);
@@ -174,7 +162,6 @@ export class App {
               ch.consume(usersQueue, (msg: AmqpMessage | null) => {
                 if (msg) {
                   this.users = JSON.parse(msg.content.toString());
-                  console.log("Users array updated:", this.users);
                   io.emit("users", this.users);
                 }
               });
@@ -186,11 +173,9 @@ export class App {
 
           // Socket used by the client to get all the connected and disconnected users
           socket.on("getUsers", () => {
-            console.log("Get users:", this.users);
             socket.emit("users", this.users);
           });
 
-          // Handle disconnections, not done
           socket.on("disconnect", () => {
             console.log("A user disconnected");
           });

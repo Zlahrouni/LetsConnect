@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import "./index.css";
 import ChatPage from "./pages/ChatPage/ChatPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import NotConnected from "./components/NotConnected/NotConnected.tsx";
+import ErrorServer from "./components/ErrorServer/ErrorServer.tsx";
 import { Message } from "./types/types.tsx";
 
 function App() {
@@ -30,23 +30,28 @@ function App() {
       setMessages(messageHistory);
     });
 
+    // Cleanup function to stop listening
     return () => {
       socket.off("connect");
       socket.off("connect_error");
       socket.off("messageHistory");
     };
-  }, []);
+  }, 
+  // Empty dependency array so the effect only runs once
+  []);
 
   return (
     <BrowserRouter>
       <div className="pageContainer">
         <Routes>
+          {/* Route for the home page */}
           <Route
             path="/"
             element={
-              isConnected ? <LoginPage socket={socket} /> : <NotConnected />
+              isConnected ? <LoginPage socket={socket} /> : <ErrorServer />
             }
           />
+          {/* Route for the chat page */}
           <Route
             path="/chat"
             element={
@@ -57,7 +62,7 @@ function App() {
                   addMessage={addMessage}
                 />
               ) : (
-                <NotConnected />
+                <ErrorServer />
               )
             }
           />
