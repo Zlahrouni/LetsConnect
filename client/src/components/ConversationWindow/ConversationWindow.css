@@ -49,9 +49,11 @@ newMessage {
 }
 
 .message {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 0 !important;
   margin: 0 !important;
-
   background-size: cover;
   overflow-y: auto;
   border: 1px solid #f7f7f7;
@@ -82,13 +84,12 @@ newMessage {
 }
 
 .message-body {
-  margin: 0 !important;
+  margin: 5px 0;
   padding: 0 !important;
   height: 100px;
 }
 
 .message-main-receiver {
-  /*padding: 10px 20px;*/
   max-width: 60%;
   height: 100%;
   max-height: 100px;
@@ -114,8 +115,8 @@ div > .sender {
   height: auto;
 }
 .message-time {
-  margin: 0 !important;
-  margin-left: 50px !important;
+  margin-bottom: 0;
+  margin-top: 5px;
   font-size: 12px;
   text-align: right;
   color: #9a9a9a;
