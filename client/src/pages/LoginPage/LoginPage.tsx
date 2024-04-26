@@ -1,4 +1,3 @@
-import "./LoginPage.css";
 import { LoginPageProps } from "../../types/types";
 import Login from "../../components/Login/Login";
 import { useEffect } from "react";
@@ -6,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = ({ socket }: LoginPageProps) => {
   const navigate = useNavigate();
+  
   useEffect(() => {
     // check local storage and connect
     if (localStorage.getItem("username")) {
@@ -31,6 +31,7 @@ const LoginPage = ({ socket }: LoginPageProps) => {
       socket.off("loginsuccess");
     };
   }, [socket]);
+
   return (
     <main className="container">
       <div className="row justify-content-center">

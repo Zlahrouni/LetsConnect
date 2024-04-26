@@ -46,7 +46,7 @@ function App() {
             element={
               isConnected ? <LoginPage socket={socket} /> : <NotConnected />
             }
-          ></Route>
+          />
           <Route
             path="/chat"
             element={
@@ -60,7 +60,7 @@ function App() {
                 <NotConnected />
               )
             }
-          ></Route>
+          />
         </Routes>
       </div>
     </BrowserRouter>

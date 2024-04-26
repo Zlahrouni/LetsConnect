@@ -1,4 +1,3 @@
-
 function NotConnected() {
   return (
     <div>

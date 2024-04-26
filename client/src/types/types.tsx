@@ -22,8 +22,8 @@ export type ConversationWindowProps = {
 };
 
 export type SendMessageProps = {
-    socket: Socket;
-  };
+  socket: Socket;
+};
 
 export type LoginProps = {
   socket: Socket;
@@ -37,4 +37,4 @@ export type SidebarBlock = {
   socket: Socket;
 };
 
-export type User = {username: string, online: boolean};
+export type User = { username: string; online: boolean };

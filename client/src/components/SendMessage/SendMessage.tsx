@@ -17,6 +17,7 @@ function SendMessage({ socket }: SendMessageProps) {
     }
     setMessage("");
   };
+
   return (
     <form className="row reply d-flex flex-column" onSubmit={handleSendMessage}>
       <div className="col-sm-11 col-xs-11 reply-main">

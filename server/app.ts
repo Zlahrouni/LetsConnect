@@ -1,8 +1,9 @@
 import express from "express";
-import { Server } from "socket.io";
-import amqp from "amqplib/callback_api";
+import { Server, Socket } from "socket.io";
+import amqp, { ConsumeMessage } from "amqplib/callback_api";
 import { Message } from "./types/types";
 import { v4 as uuidv4 } from "uuid";
+import { Channel, Connection, Message as AmqpMessage } from 'amqplib/callback_api';
 
 export class App {
   private express = express();
@@ -13,14 +14,13 @@ export class App {
   constructor(port: number = 3000) {
     this.configureServer(port);
     this.configureIO();
-    //this.connectToRabbitMQ();
   }
 
   /**
    * Configure the Express server
    * @private
    */
-  private configureServer(port: number) {
+  private configureServer(port: number): void {
     this.httpServer = this.express.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
@@ -30,50 +30,44 @@ export class App {
    * Configure the Socket.IO server
    * @private
    */
-  private configureIO() {
-    const io = new Server(this.httpServer, { cors: { origin: "*" } }); // Allow all origins for development
+  private configureIO(): void {
+    const io: Server = new Server(this.httpServer, { cors: { origin: "*" } });
+    const rabbitmqUrl: string = "amqp://localhost:5672";
 
-    // RabbitMQ's connection details
-    const rabbitmqUrl = "amqp://localhost:5672";
-
-    // Connect to RabbitMQ
-    amqp.connect(rabbitmqUrl, (err, conn) => {
-      // Handle connection errors
+    amqp.connect(rabbitmqUrl, (err: Error, conn: Connection): void => {
       if (err) {
         console.error("Error connecting to RabbitMQ:", err);
         process.exit(1);
       }
 
-      // Create a channel
-      conn.createChannel((err, ch) => {
+      conn.createChannel((err: Error, ch: Channel) => {
         if (err) {
           console.error("Error creating RabbitMQ channel:", err);
           process.exit(1);
         }
 
-        const chatMessages = "chat_messages";
-        const usersQueue = "users";
+        const messagesQueue: string = "chat_messages";
+        const usersQueue: string = "users";
 
-        // Add a queue
-        ch.assertQueue(chatMessages, { durable: false });
+        // assert the queues
+        ch.assertQueue(messagesQueue, { durable: false });
         ch.assertQueue(usersQueue, { durable: false });
 
         // Read the users queue and set the users array with the data from the queue
-        ch.consume(usersQueue, (msg) => {
+        ch.consume(usersQueue, (msg: AmqpMessage | null): void => {
           if (msg) {
             this.users = JSON.parse(msg.content.toString());
-            console.log("First Users array updated:", this.users);
+            console.log("Users array updated:", this.users);
           }
         });
 
         // Read the chat messages queue and set the messageHistory array with the data from the queue
-        ch.consume(chatMessages, (msg) => {
+        ch.consume(messagesQueue, (msg: AmqpMessage| null) => {
           if (msg) {
-            console.log("Message history array:", this.messageHistory);
             const newMessage: Message = JSON.parse(msg.content.toString());
             this.messageHistory.push(newMessage);
             console.log(
-              "First Message history array updated:",
+              "Message history array updated:",
               this.messageHistory
             );
           }
@@ -84,69 +78,58 @@ export class App {
         });
 
         // Listen for messages in the queue
-        io.on("connection", (socket) => {
-          console.log("A user connected");
+        io.on("connection", (socket: Socket) => {
 
           // Send the message history to the client
           socket.emit("messageHistory", this.messageHistory);
 
-          // Handle messages from clients
-          socket.on("client-to-server", (messageObject) => {
-            console.log("Received message:", messageObject);
+          // Handle messages sent from clients
+          socket.on("client-to-server", (messageObject: { name: string, message: string }) => {
             let messageToStore: Message = {
               id: uuidv4(),
               name: messageObject.name,
               message: messageObject.message,
               date: new Date().toLocaleString(),
             };
-            // Send message to RabbitMQ queue
+
             ch.sendToQueue(
-              chatMessages,
+              messagesQueue,
               Buffer.from(JSON.stringify(messageToStore))
             );
 
+            // send message history to the client who sent + all clients
             socket.emit("messageHistory", this.messageHistory);
-
-            // Send message to all clients
             io.emit("server-to-client", messageToStore);
           });
 
-          socket.on("login", (data) => {
-            console.log("User logged in:", data);
-
-            // Add the user to the users array or change their online status if they are already in the array
+          socket.on("login", (data: { username: string }) => {
             const user = this.users.find(
-              (user) => user.username === data.username
+              (user:{ username: string, online: boolean }) => user.username === data.username
             );
-
             if (user) {
               user.online = true;
             } else {
               this.users.push({ username: data.username, online: true });
             }
 
-            // Purge the queue because we need to have one message in the queue which is the list of users
-            ch.purgeQueue(usersQueue, (err, ok) => {
+            // Purge the queue because we only want recent users
+            ch.purgeQueue(usersQueue, (err: Error | null) => {
               if (err) {
                 console.error("Error purging RabbitMQ queue:", err);
                 return;
               }
 
-              console.log("Successfully purged the users queue");
-
-              // Send the users array to the RabbitMQ login queue
+              // Send the latest users array to the RabbitMQ users queue
               ch.sendToQueue(
                 usersQueue,
                 Buffer.from(JSON.stringify(this.users))
               );
 
               this.users = [];
-              console.log("Users array purged:", this.users);
 
-              ch.consume(usersQueue, (msg) => {
+              ch.consume(usersQueue, (msg: AmqpMessage | null) => {
                 if (msg) {
                   this.users = JSON.parse(msg.content.toString());
-                  console.log("Users array updated:", this.users);
                   io.emit("users", this.users);
                 }
               });
@@ -155,20 +138,17 @@ export class App {
             });
           });
 
-          socket.on("logout", (data, callback) => {
-            console.log("User want to logout:", data);
+          socket.on("logout", (data: { username: string }, callback: (arg: {}) => void) => {
             // Find the user in the users array
             const user = this.users.find(
               (user) => user.username === data.username
             );
 
-            // If the user is found, set their online status to false
             if (user) {
               user.online = false;
             }
 
-            // Purge the queue because we need to have one message in the queue which is the list of users
-            ch.purgeQueue(usersQueue, (err, ok) => {
+            ch.purgeQueue(usersQueue, (err: Error | null) => {
               if (err) {
                 console.error("Error purging RabbitMQ queue:", err);
                 return;
@@ -179,26 +159,23 @@ export class App {
                 Buffer.from(JSON.stringify(this.users))
               );
 
-              ch.consume(usersQueue, (msg) => {
+              ch.consume(usersQueue, (msg: AmqpMessage | null) => {
                 if (msg) {
                   this.users = JSON.parse(msg.content.toString());
-                  console.log("Users array updated:", this.users);
                   io.emit("users", this.users);
                 }
               });
 
-              // callBack to the client
+              // reply to the client
               callback({});
             });
           });
 
-          // This socket used by the client to ged all the users connected and disconnected
+          // Socket used by the client to get all the connected and disconnected users
           socket.on("getUsers", () => {
-            console.log("Get users:", this.users);
             socket.emit("users", this.users);
           });
 
-          // Handle disconnections, not done
           socket.on("disconnect", () => {
             console.log("A user disconnected");
           });
